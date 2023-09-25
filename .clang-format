@@ -1,0 +1,13 @@
+BasedOnStyle: LLVM
+IndentWidth: 4
+
+AlignAfterOpenBracket: BlockIndent
+
+IndentPPDirectives: BeforeHash
+
+IncludeBlocks: Regroup
+IncludeCategories:
+  - Regex: '^<.*'
+    SortPriority: 1
+  - Regex: '^".*'
+    SortPriority: 2

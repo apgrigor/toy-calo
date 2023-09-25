@@ -1,0 +1,18 @@
+# xmake cache
+.xmake
+build
+
+# personal editor settings
+.vscode
+.clangd
+
+# python venv
+.env
+
+# deprecated code
+legacy
+
+# other directories
+data
+img
+doc
