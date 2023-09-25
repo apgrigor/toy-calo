@@ -159,8 +159,6 @@ bdts::train_and_validate(std::string model_dir, ROOT::RDataFrame df) {
         bdt_dirname + std::string("/weights/calo_BDT.weights.xml")
     );
 
-    // auto variables = model.GetVariableNames();
-    // auto prediction = model.Compute({0.5, 0.5, 0.5});
     cuts::CutResult result{0, 0};
     std::vector<float> variables{0, 0, 0};
 
@@ -177,10 +175,6 @@ bdts::train_and_validate(std::string model_dir, ROOT::RDataFrame df) {
 
         auto classification = model.Compute({energy, long_mean, lat_mean});
 
-        // std::cout << energy << ", " << long_mean << ", " << lat_mean << " | "
-        //           << classification[0] << ", " << classification[1] << ", "
-        //           << classification[2] << '\n';
-
         if (classification[0] > 0) {
             result.sig_eff += 1;
         }
@@ -195,10 +189,6 @@ bdts::train_and_validate(std::string model_dir, ROOT::RDataFrame df) {
         bkg.m_validation_tree->GetEntry(i);
 
         auto classification = model.Compute({energy, long_mean, lat_mean});
-
-        // std::cout << energy << ", " << long_mean << ", " << lat_mean << " | "
-        //           << classification[0] << ", " << classification[1] << ", "
-        //           << classification[2] << '\n';
 
         if (classification[0] > 0) {
             result.bkg_eff += 1;

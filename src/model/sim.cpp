@@ -145,8 +145,6 @@ inline void EgammaSampler::sample_point(uint8_t (&point)[3]) {
     float eta;
     float phi;
 
-    // do { // not all (r, θ) pairs are valid: the (η, φ) cross section is a
-    // square
     const float r2 = sim_rand_gen->Rndm() * m_lat_norm[point[0]];
 
     const float radius = m_r[point[0]] * TMath::Sqrt(r2 / (1 - r2));
@@ -157,7 +155,6 @@ inline void EgammaSampler::sample_point(uint8_t (&point)[3]) {
     // the + 0.5 rounds to the nearest integer instead of truncating
     eta = static_cast<uint8_t>(radius * TMath::Cos(angle) + ETA_MID + 0.5);
     phi = static_cast<uint8_t>(radius * TMath::Sin(angle) + PHI_MID + 0.5);
-    // } while ((eta < ETA_CELLS) && (phi < PHI_CELLS));
 
     point[1] = eta;
     point[2] = phi;
@@ -235,8 +232,6 @@ inline void HadronSampler::sample_point(uint8_t (&point)[3]) {
     float eta;
     float phi;
 
-    // do { // not all (r, θ) pairs are valid: the (η, φ) cross section is a
-    // square
     const float r2 = sim_rand_gen->Rndm() * m_lat_norm[point[0]];
 
     const float radius = m_r[point[0]] * TMath::Sqrt(r2 / (1 - r2));
@@ -247,7 +242,6 @@ inline void HadronSampler::sample_point(uint8_t (&point)[3]) {
     // the + 0.5 rounds to the nearest integer instead of truncating
     eta = static_cast<uint8_t>(radius * TMath::Cos(angle) + ETA_MID + 0.5);
     phi = static_cast<uint8_t>(radius * TMath::Sin(angle) + PHI_MID + 0.5);
-    // } while ((eta <= ETA_CELLS) && (phi <= PHI_CELLS));
 
     point[1] = eta;
     point[2] = phi;
