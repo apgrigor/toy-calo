@@ -42,7 +42,6 @@ class Cutter {
 
     CutResult eval_cut(ROOT::RDataFrame);
 
-  private:
     std::function<bool(float)> m_energy_cut;
     std::function<bool(float)> m_long_mean_cut;
     std::function<bool(float)> m_lat_mean_cut;
@@ -50,7 +49,8 @@ class Cutter {
     std::function<bool(UInt_t)> m_depth_m2_cut;
     std::function<bool(UInt_t)> m_em_frac_cut;
 
+  private:
     bool cut_fn(float, float, float, UInt_t, UInt_t, UInt_t);
 };
 
-} // namespace manual
+} // namespace cuts
