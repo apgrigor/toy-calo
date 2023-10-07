@@ -25,28 +25,23 @@ int main(int argc, char **argv) {
     std::cout << "running toy model for dataset \"" << option << "\"..."
               << std::endl;
 
-    if (option.compare(std::string("flat")) == 0) {
-        toy::ToyRunner flat_egamma{
-            energy_resolution, gen::flat, sim::egamma_hits};
-        toy::ToyRunner flat_hadron{
-            energy_resolution, gen::flat, sim::hadron_hits};
+    toy::ToyRunner egamma_runner{};
+    toy::ToyRunner hadron_runner{};
 
-        toy::run("flat", flat_egamma, flat_hadron);
+    if ((option.compare(std::string("flat")) == 0) ||
+        (option.compare(std::string("discr")) == 0)) {
+        egamma_runner =
+            toy::ToyRunner{energy_resolution, gen::flat, sim::egamma_hits};
+        hadron_runner =
+            toy::ToyRunner{energy_resolution, gen::flat, sim::hadron_hits};
     } else if (option.compare(std::string("flat_spec")) == 0) {
-        toy::ToyRunner flat_spec_egamma{
-            energy_resolution, gen::flat_spec, sim::egamma_hits};
-        toy::ToyRunner flat_spec_hadron{
-            energy_resolution, gen::flat_spec, sim::hadron_hits};
-
-        toy::run("flat_spec", flat_spec_egamma, flat_spec_hadron);
-    } else if (option.compare(std::string("discr")) == 0) {
-        toy::ToyRunner flat_spec_egamma{
-            energy_resolution, gen::flat_spec, sim::egamma_hits};
-        toy::ToyRunner flat_spec_hadron{
-            energy_resolution, gen::flat_spec, sim::hadron_hits};
-
-        toy::run("discr", flat_spec_egamma, flat_spec_hadron);
+        egamma_runner =
+            toy::ToyRunner{energy_resolution, gen::flat_spec, sim::egamma_hits};
+        hadron_runner =
+            toy::ToyRunner{energy_resolution, gen::flat_spec, sim::hadron_hits};
     }
+
+    toy::run(option, egamma_runner, hadron_runner);
 
     std::cout << "\n\ntotal time taken: " << watch.RealTime() << 's'
               << std::endl;

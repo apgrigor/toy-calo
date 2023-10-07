@@ -72,7 +72,7 @@ inline void toy::ThreadArena::save(std::string dataset_name) {
 }
 
 // clang-format off
-void toy::run(const char *dataset_name, toy::ToyRunner runners[NPIDS]) {
+void toy::run(std::string dataset_name, toy::ToyRunner runners[NPIDS]) {
     auto toy_pbar = new logging::ProgressBar(NTOYS * NPIDS);
 
     auto arena = new toy::ThreadArena();
@@ -121,7 +121,7 @@ void toy::run(const char *dataset_name, toy::ToyRunner runners[NPIDS]) {
 }
 // clang-format on
 
-void toy::run(const char *dataset_name, ...) {
+void toy::run(std::string dataset_name, ...) {
     va_list args;
     va_start(args, dataset_name);
 

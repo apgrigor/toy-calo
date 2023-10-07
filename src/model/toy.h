@@ -35,9 +35,9 @@ struct ToyRunner {
     sim::SimHits (*sim_func)(float, float);
 };
 
-void run(const char *dataset_name, toy::ToyRunner runners[NPIDS]);
+void run(std::string dataset_name, toy::ToyRunner runners[NPIDS]);
 
-void run(const char *dataset_name, ...);
+void run(std::string dataset_name, ...);
 
 ThreadArena *run_egamma();
 
