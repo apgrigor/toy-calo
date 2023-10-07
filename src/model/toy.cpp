@@ -122,15 +122,15 @@ void toy::run(std::string base_dir, std::string dataset_name, toy::ToyRunner run
 }
 // clang-format on
 
-void toy::run(std::string base_dir, std::string dataset_name, ...) {
-    va_list args;
-    va_start(args, dataset_name);
-
-    toy::ToyRunner runner_array[NPIDS];
-
-    for (size_t pid = 0; pid < NPIDS; pid++) {
-        runner_array[pid] = va_arg(args, toy::ToyRunner);
-    }
-
-    run(base_dir, dataset_name, runner_array);
-}
+// void toy::run(std::string base_dir, std::string dataset_name, ...) {
+//     va_list args;
+//     va_start(args, dataset_name);
+//
+//     toy::ToyRunner runner_array[NPIDS];
+//
+//     for (size_t pid = 0; pid < NPIDS; pid++) {
+//         runner_array[pid] = va_arg(args, toy::ToyRunner);
+//     }
+//
+//     run(base_dir, dataset_name, runner_array);
+// }

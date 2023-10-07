@@ -2,6 +2,7 @@
 
 // complete model runner, designed to be multithreaded for performance
 
+#include <functional>
 #include <string>
 #include <thread>
 
@@ -31,13 +32,16 @@ class ThreadArena {
 
 struct ToyRunner {
     float energy_resolution;
-    float (*gen_func)();
+    std::function<float()> gen_func;
     sim::SimHits (*sim_func)(float, float);
 };
 
-void run(std::string base_dir, std::string dataset_name, toy::ToyRunner runners[NPIDS]);
+void run(
+    std::string base_dir, std::string dataset_name,
+    toy::ToyRunner runners[NPIDS]
+);
 
-void run(std::string base_dir, std::string dataset_name, ...);
+// void run(std::string base_dir, std::string dataset_name, ...);
 
 ThreadArena *run_egamma();
 

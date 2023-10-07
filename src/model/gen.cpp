@@ -1,5 +1,6 @@
 #include "gen.h"
 
+#include <functional>
 #include <iostream>
 
 #include "TRandom3.h"
@@ -22,4 +23,8 @@ float gen::flat_spec() {
     size_t idx = static_cast<size_t>(gen_rand_gen->Rndm() * N_SPEC_ENERGIES);
 
     return spec_energies[idx];
+}
+
+std::function<float()> gen::make_exact(float energy) {
+    return std::function<float()>([energy]() { return energy; });
 }

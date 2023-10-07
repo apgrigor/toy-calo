@@ -1,3 +1,4 @@
+#include <functional>
 #include <iostream>
 #include <thread>
 
@@ -28,6 +29,11 @@ int main(int argc, char **argv) {
         energy_resolution = std::stof(argv[3]);
     }
 
+    int fixed_energy = 5;
+    if (argc > 4) {
+        fixed_energy = std::stoi(argv[4]);
+    }
+
     std::cout << "running toy model for dataset \"" << option << "\"..."
               << std::endl;
 
@@ -44,11 +50,18 @@ int main(int argc, char **argv) {
             toy::ToyRunner{energy_resolution, gen::flat_spec, sim::egamma_hits};
         hadron_runner =
             toy::ToyRunner{energy_resolution, gen::flat_spec, sim::hadron_hits};
+    } else if (option.compare(std::string("exact")) == 0) {
+        std::cout << "with energy " << fixed_energy << std::endl;
+        egamma_runner = toy::ToyRunner{
+            energy_resolution, gen::make_exact(fixed_energy), sim::egamma_hits};
+        hadron_runner = toy::ToyRunner{
+            energy_resolution, gen::make_exact(fixed_energy), sim::hadron_hits};
     } else {
         std::cout << "option \"" << option << "\" not recognised." << std::endl;
     }
 
-    toy::run(base_dir, option, egamma_runner, hadron_runner);
+    toy::ToyRunner runners[2]{egamma_runner, hadron_runner};
+    toy::run(base_dir, option, runners);
 
     std::cout << "\n\ntotal time taken: " << watch.RealTime() << 's'
               << std::endl;
