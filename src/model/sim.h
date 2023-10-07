@@ -18,8 +18,8 @@ struct SimHits {
     float energy[DEPTH_CELLS][ETA_CELLS][PHI_CELLS];
 };
 
-SimHits egamma_hits(float total_energy);
+SimHits egamma_hits(float total_energy, float energy_resolution);
 
-SimHits hadron_hits(float total_energy);
+SimHits hadron_hits(float total_energy, float energy_resolution);
 
 } // namespace sim

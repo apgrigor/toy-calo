@@ -30,8 +30,9 @@ class ThreadArena {
 };
 
 struct ToyRunner {
+    float energy_resolution;
     float (*gen_func)();
-    sim::SimHits (*sim_func)(float);
+    sim::SimHits (*sim_func)(float, float);
 };
 
 void run(const char *dataset_name, toy::ToyRunner runners[NPIDS]);

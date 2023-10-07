@@ -2,8 +2,6 @@
 
 #include "reco.h"
 
-#include <algorithm>
-
 #include "TMath.h"
 #include "sim.h"
 
@@ -80,4 +78,3 @@ void reco::ShowerArena::reco_fill(size_t idx, const sim::SimHits &hits) {
     // percentage represented as u8 to save space
     m_em_frac[idx] = static_cast<uint8_t>(em_energy / total_energy * 100);
 }
-
