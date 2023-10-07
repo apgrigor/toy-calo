@@ -32,8 +32,9 @@ inline void toy::ThreadArena::fill(
     m_current_idx[pid][thread_num]++;
 }
 
-inline void toy::ThreadArena::save(std::string dataset_name) {
-    TFile *outfile = files::open_next_data_file(dataset_name);
+inline void
+toy::ThreadArena::save(std::string base_dir, std::string dataset_name) {
+    TFile *outfile = files::open_next_data_file(base_dir, dataset_name);
 
     Float_t energy;
     Float_t long_mean;
@@ -72,13 +73,13 @@ inline void toy::ThreadArena::save(std::string dataset_name) {
 }
 
 // clang-format off
-void toy::run(std::string dataset_name, toy::ToyRunner runners[NPIDS]) {
+void toy::run(std::string base_dir, std::string dataset_name, toy::ToyRunner runners[NPIDS]) {
     auto toy_pbar = new logging::ProgressBar(NTOYS * NPIDS);
 
     auto arena = new toy::ThreadArena();
 
     #ifdef SNAP
-        auto snapper = new logging::SimHitSnapper(dataset_name, NTOYS);
+        auto snapper = new logging::SimHitSnapper(base_dir, dataset_name, NTOYS);
     #endif
 
     for (uint8_t thread_num = 0; thread_num < NTHREADS; thread_num++) {
@@ -117,11 +118,11 @@ void toy::run(std::string dataset_name, toy::ToyRunner runners[NPIDS]) {
         snapper->save();
     #endif
 
-    arena->save(dataset_name);
+    arena->save(base_dir, dataset_name);
 }
 // clang-format on
 
-void toy::run(std::string dataset_name, ...) {
+void toy::run(std::string base_dir, std::string dataset_name, ...) {
     va_list args;
     va_start(args, dataset_name);
 
@@ -131,5 +132,5 @@ void toy::run(std::string dataset_name, ...) {
         runner_array[pid] = va_arg(args, toy::ToyRunner);
     }
 
-    run(dataset_name, runner_array);
+    run(base_dir, dataset_name, runner_array);
 }

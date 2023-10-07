@@ -23,7 +23,7 @@ class ThreadArena {
     void
     fill(uint8_t thread_num, uint8_t pid, float energy, const sim::SimHits &);
 
-    void save(std::string file_path);
+    void save(std::string base_dir, std::string file_path);
 
   private:
     size_t m_current_idx[NPIDS][NTHREADS];
@@ -35,9 +35,9 @@ struct ToyRunner {
     sim::SimHits (*sim_func)(float, float);
 };
 
-void run(std::string dataset_name, toy::ToyRunner runners[NPIDS]);
+void run(std::string base_dir, std::string dataset_name, toy::ToyRunner runners[NPIDS]);
 
-void run(std::string dataset_name, ...);
+void run(std::string base_dir, std::string dataset_name, ...);
 
 ThreadArena *run_egamma();
 

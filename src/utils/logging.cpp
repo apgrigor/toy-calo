@@ -49,8 +49,10 @@ void logging::ProgressBar::finish() {
 }
 
 logging::SimHitSnapper::SimHitSnapper(
-    std::string dataset_name, size_t max_events
+    std::string dataset_base_dir, std::string dataset_name, size_t max_events
 ) {
+    m_dataset_base_dir = dataset_base_dir;
+
     m_dataset_name = dataset_name;
 
     m_events_per_snap_thread_pid = max_events / NSNAPS / NTHREADS;
@@ -94,7 +96,8 @@ void logging::SimHitSnapper::snap(
 }
 
 void logging::SimHitSnapper::save() {
-    TFile *outfile = files::open_next_root_file(m_dataset_name, "snap");
+    TFile *outfile =
+        files::open_next_root_file(m_dataset_base_dir, m_dataset_name, "snap");
 
     float hits[DEPTH_CELLS][ETA_CELLS][PHI_CELLS];
     float energy;

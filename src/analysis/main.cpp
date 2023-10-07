@@ -39,7 +39,6 @@ int main(int argc, char **argv) {
     } else if (option.compare(std::string("discr"))) {
         std::cout << "comparing discriminatory capabilities" << std::endl;
         res = bdts::train_and_validate("data/model", df);
-
     } else {
         std::cout << "method " << option << " doesn't exist!" << std::endl;
         return 1;

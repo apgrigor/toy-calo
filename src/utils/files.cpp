@@ -61,11 +61,12 @@ std::string next_filename(
 }
 
 TFile *files::open_next_root_file(
-    std::string dataset_name, std::string naming_scheme
+    std::string base_dir, std::string dataset_name, std::string naming_scheme
 ) {
     fs::path final_path{PROJECT_DIR};
 
     final_path.append("data");
+    final_path.append(base_dir);
     final_path.append(dataset_name);
     final_path.append(
         next_filename(final_path, naming_scheme, std::string(".root"))
@@ -74,6 +75,7 @@ TFile *files::open_next_root_file(
     return TFile::Open(final_path.c_str(), "CREATE");
 }
 
-TFile *files::open_next_data_file(std::string dataset_name) {
-    return open_next_root_file(dataset_name, "data");
+TFile *
+files::open_next_data_file(std::string base_dir, std::string dataset_name) {
+    return open_next_root_file(base_dir, dataset_name, "data");
 }
