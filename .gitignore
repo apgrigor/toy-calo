@@ -5,6 +5,8 @@ build
 # personal editor settings
 .vscode
 .clangd
+scripts/*.sh
+scripts/*.txt
 
 # python venv
 .env
