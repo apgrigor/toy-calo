@@ -42,7 +42,10 @@ struct SimHitSnap {
 class SimHitSnapper {
   public:
     // note that the constructor expects the max events PER PARTICLE ID
-    SimHitSnapper(std::string dataset_base_dir, std::string dataset_name, size_t max_events);
+    SimHitSnapper(
+        std::string dataset_base_dir, std::string dataset_name,
+        size_t max_events
+    );
 
     void snap(uint8_t thread_num, uint8_t pid, float energy, sim::SimHits hits);
 
