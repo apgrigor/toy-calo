@@ -14,13 +14,13 @@
 
 TRandom *sim_rand_gen = new TRandom3(1000009);
 
-inline float detector_resolution(float energy, float energy_resolution) {
-    return TMath::Sqrt(energy_resolution / energy + 0.000035);
+inline float detector_resolution(float energy, float stochastic_resolution, float noise) {
+    return TMath::Sqrt(stochastic_resolution / energy + noise / TMath::Sq(energy) + 0.000035);
 }
 
 // gaussian smearing to simulate the precision of the detector
 inline void smear_cells(
-    float energy_threshold, sim::SimHits &hits, float energy_resolution
+    float energy_threshold, sim::SimHits &hits, float energy_resolution, float noise
 ) {
     for (uint8_t i = 0; i < DEPTH_CELLS; i++) {
         for (uint8_t j = 0; j < ETA_CELLS; j++) {
@@ -35,7 +35,7 @@ inline void smear_cells(
                     energy +
                     sim_rand_gen->Gaus(
                         0,
-                        energy * detector_resolution(energy, energy_resolution)
+                        energy * detector_resolution(energy, energy_resolution, noise)
                     )
                 );
             }
@@ -71,7 +71,7 @@ inline float get_hadron_alpha(float log_energy) {
 // but this is not expressed in code as C++ didn't have compile-time generics
 // before concepts in C++20, and I have to use C++17 for ROOT of course
 template <class Sampler>
-inline sim::SimHits generate_hits(float total_energy, float energy_resolution) {
+inline sim::SimHits generate_hits(float total_energy, float energy_resolution, float noise) {
     sim::SimHits result;
     for (size_t i = 0; i < DEPTH_CELLS; i++) {
         for (size_t j = 0; j < ETA_CELLS; j++) {
@@ -92,7 +92,7 @@ inline sim::SimHits generate_hits(float total_energy, float energy_resolution) {
         result.energy[point[0]][point[1]][point[2]] += sample_energy;
     }
 
-    smear_cells(sample_energy, result, energy_resolution);
+    smear_cells(sample_energy, result, energy_resolution, noise);
 
     return result;
 }
@@ -166,8 +166,8 @@ inline void EgammaSampler::sample_point(uint8_t (&point)[3]) {
     point[2] = phi;
 }
 
-sim::SimHits sim::egamma_hits(float total_energy, float energy_resolution) {
-    return generate_hits<EgammaSampler>(total_energy, energy_resolution);
+sim::SimHits sim::egamma_hits(float total_energy, float energy_resolution, float noise) {
+    return generate_hits<EgammaSampler>(total_energy, energy_resolution, noise);
 }
 
 class HadronSampler {
@@ -253,6 +253,6 @@ inline void HadronSampler::sample_point(uint8_t (&point)[3]) {
     point[2] = phi;
 }
 
-sim::SimHits sim::hadron_hits(float total_energy, float energy_resolution) {
-    return generate_hits<HadronSampler>(total_energy, energy_resolution);
+sim::SimHits sim::hadron_hits(float total_energy, float energy_resolution, float noise) {
+    return generate_hits<HadronSampler>(total_energy, energy_resolution, noise);
 }

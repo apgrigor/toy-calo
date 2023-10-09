@@ -93,7 +93,7 @@ void toy::run(std::string base_dir, std::string dataset_name, toy::ToyRunner run
                 for (uint8_t pid = 0; pid < NPIDS; pid++) {
                     for (size_t ntoys = 0; ntoys < TOYS_PER_THREAD; ntoys++) {
                         float energy = runners[pid].gen_func();
-                        auto sim_hits = runners[pid].sim_func(energy, runners[pid].energy_resolution);
+                        auto sim_hits = runners[pid].sim_func(energy, runners[pid].stochastic_resolution, runners[pid].noise);
 
                         #ifdef SNAP
                             snapper->snap(thread_num, pid, energy, sim_hits);

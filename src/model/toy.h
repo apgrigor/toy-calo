@@ -31,9 +31,10 @@ class ThreadArena {
 };
 
 struct ToyRunner {
-    float energy_resolution;
+    float stochastic_resolution;
+    float noise;
     std::function<float()> gen_func;
-    sim::SimHits (*sim_func)(float, float);
+    sim::SimHits (*sim_func)(float, float, float);
 };
 
 void run(
