@@ -54,9 +54,10 @@ def save_comps(df_eg, df_had, dirname, energy=None):
     save_comp("depth_m2", df_eg, df_had, f"{dirname}/depth_m2.png", energy, 8, (0, 8))
     save_comp("em_frac", df_eg, df_had, f"{dirname}/em_frac.png", energy, 100, (0, 100))
 
+sample = "flat"
 
-with uproot.open("../data/flat/data_03.root") as fin:
-    base_dir = "../img/comp"
+with uproot.open(f"../data/{sample}/data_03.root") as fin:
+    base_dir = f"../img/comp/{sample}"
     mkdir(base_dir)
 
     for key, tree in fin.items():

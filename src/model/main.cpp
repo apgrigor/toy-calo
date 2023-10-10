@@ -29,10 +29,9 @@ int main(int argc, char **argv) {
         energy_resolution = std::stof(argv[3]);
     }
 
-
     float noise = 0.25;
     if (argc > 4) {
-        energy_resolution = std::stof(argv[4]);
+        noise = std::stof(argv[4]);
     }
 
     int fixed_energy = 5;
@@ -47,21 +46,23 @@ int main(int argc, char **argv) {
     toy::ToyRunner hadron_runner{};
 
     if (option.compare(std::string("flat")) == 0) {
-        egamma_runner =
-            toy::ToyRunner{energy_resolution, noise, gen::flat, sim::egamma_hits};
-        hadron_runner =
-            toy::ToyRunner{energy_resolution, noise, gen::flat, sim::hadron_hits};
+        egamma_runner = toy::ToyRunner{
+            energy_resolution, noise, gen::flat, sim::egamma_hits};
+        hadron_runner = toy::ToyRunner{
+            energy_resolution, noise, gen::flat, sim::hadron_hits};
     } else if (option.compare(std::string("flat_spec")) == 0) {
-        egamma_runner =
-            toy::ToyRunner{energy_resolution, noise, gen::flat_spec, sim::egamma_hits};
-        hadron_runner =
-            toy::ToyRunner{energy_resolution, noise, gen::flat_spec, sim::hadron_hits};
+        egamma_runner = toy::ToyRunner{
+            energy_resolution, noise, gen::flat_spec, sim::egamma_hits};
+        hadron_runner = toy::ToyRunner{
+            energy_resolution, noise, gen::flat_spec, sim::hadron_hits};
     } else if (option.compare(std::string("exact")) == 0) {
         std::cout << "with energy " << fixed_energy << std::endl;
         egamma_runner = toy::ToyRunner{
-            energy_resolution, noise, gen::make_exact(fixed_energy), sim::egamma_hits};
+            energy_resolution, noise, gen::make_exact(fixed_energy),
+            sim::egamma_hits};
         hadron_runner = toy::ToyRunner{
-            energy_resolution, noise, gen::make_exact(fixed_energy), sim::hadron_hits};
+            energy_resolution, noise, gen::make_exact(fixed_energy),
+            sim::hadron_hits};
     } else {
         std::cout << "option \"" << option << "\" not recognised." << std::endl;
     }
