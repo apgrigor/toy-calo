@@ -72,21 +72,21 @@ def draw_profiles(profile_func, axis, title=None):
 
     axis.legend()
 
-
-# fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
-
-fig1, ax1 = plt.subplots(1, 1, figsize=(6, 5))
-fig2, ax2 = plt.subplots(1, 1, figsize=(6, 5))
-
-
-draw_profiles(egamma_profile, ax1, title="EG")
-draw_profiles(hadron_profile, ax2, title="HAD")
-
-# fig.tight_layout()
-# fig.savefig("../img/profiles/long_0.png")
-
-fig1.tight_layout()
-fig2.tight_layout()
-
-fig1.savefig("../img/profiles/long_0_eg.png")
-fig2.savefig("../img/profiles/long_0_had.png")
+if __name__ == "__main__":
+    # fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
+    
+    fig1, ax1 = plt.subplots(1, 1, figsize=(6, 5))
+    fig2, ax2 = plt.subplots(1, 1, figsize=(6, 5))
+    
+    
+    draw_profiles(egamma_profile, ax1, title="EG")
+    draw_profiles(hadron_profile, ax2, title="HAD")
+    
+    # fig.tight_layout()
+    # fig.savefig("../img/profiles/long_0.png")
+    
+    fig1.tight_layout()
+    fig2.tight_layout()
+    
+    fig1.savefig("../img/profiles/long_0_eg.png")
+    fig2.savefig("../img/profiles/long_0_had.png")

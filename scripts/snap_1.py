@@ -6,7 +6,7 @@ def mkdir(path: str):
     if not os.path.exists(path):
         os.makedirs(path)
 
-with uproot.open("../data/flat_spec/snap_03.root") as fin:
+with uproot.open("data/flat_spec/snap_04.root") as fin:
     for key, tree in fin.items():
         arr = tree.arrays(library="ak", filter_name=["sim_hits", "energy", "pid"])
 
@@ -17,8 +17,8 @@ with uproot.open("../data/flat_spec/snap_03.root") as fin:
             # sh_slice = sim_hits['sim_hits'].to_numpy()[:,:,4]
 
             # print(type(sim_hits['sim_hits'].to_numpy()))
-            plt.figure(figsize=(6, 5))
-            plt.pcolormesh(sh_slice, cmap="hot")
+            plt.figure(figsize=(6, 5.5))
+            plt.pcolormesh(sh_slice, cmap="plasma")
             cbar = plt.colorbar()
             cbar.set_label("energy (GeV)")
             plt.xlabel("eta")
@@ -30,10 +30,10 @@ with uproot.open("../data/flat_spec/snap_03.root") as fin:
                 f'{"EG" if sim_hits["pid"] == 0 else "HAD"} (total energy = {energy} GeV)'
             )
 
-            mkdir(f"../img/snap/flat_spec/e{energy}")
+            mkdir(f"img/snap/flat_spec/e{energy}")
 
             plt.tight_layout()
-            plt.savefig(f"../img/snap/flat_spec/e{energy}/snap_{i:02}_mesh")
+            plt.savefig(f"img/snap/flat_spec/e{energy}/snap_{i:02}_mesh")
             plt.close()
 
             # plt.figure(figsize=(6, 5))
