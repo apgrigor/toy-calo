@@ -7,6 +7,9 @@ build
 .clangd
 scripts/*.sh
 scripts/*.txt
+scripts/__pycache__
+*.log
+*.aux
 
 # python venv
 .env
@@ -17,4 +20,4 @@ legacy
 # other directories
 data
 img
-doc
+doc/*.pdf
