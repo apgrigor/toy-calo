@@ -1,0 +1,29 @@
+ecal_tdr:
+  type: Article
+  title: "The Electromagnetic Calorimeter Technical Design Report"
+  author: ["CMS Collaboration"]
+  date: 1997-12-15
+  url: https://cds.cern.ch/record/349375/files/ECAL_TDR.pdf
+
+eg_profiles:
+  type: Article
+  title: "The Parameterized Simulation of Electromagnetic Showers in Homogeneous and Sampling Calorimeters"
+  author: ["Grindhammer, G", "Peters, S"]
+  date: 2000-1-10
+  url: https://arxiv.org/abs/hep-ex/0001020
+
+gflash:
+  type: Article
+  title: "Gflash as a Parameterized Calorimeter Simulation
+for the CMS Experiment"
+  author: "Yung Jun, Soon"
+  date: 2010
+  url: https://s3.cern.ch/inspire-prod-files-a/a92c8289ee1f998b958111d3aaa848b2
+  doi: 10.1088/1742-6596/293/1/012023
+
+had_profiles:
+  type: Article
+  title: "A Parametrization of the Lateral Profile of Hadronic Showers from 10 to 300 GeV"
+  author: ["Shih, Hsiuan-jeng", "Kanofsky, Alvin"]
+  date: 1976
+  url: https://lss.fnal.gov/conf/C860623/p493.pdf
