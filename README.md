@@ -26,4 +26,4 @@ xmake run an bdts
 ```
 for a BDT-based discrimination.
 
-Various Python scripts were made for auxillary plots etc., in `scripts`
+Various Python scripts were made for auxillary plots etc., in `scripts`.
