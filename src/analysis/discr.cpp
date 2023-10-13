@@ -1,6 +1,7 @@
 
 #include "discr.h"
 
+#include <fstream>
 #include <thread>
 
 #include "../utils/files.h"
@@ -104,4 +105,18 @@ std::vector<discr::DiscrResult> discr::discriminate(
     }
 
     return result;
+}
+
+void discr::save_discr(
+    std::vector<discr::DiscrResult> results, std::string file_path
+) {
+    std::ofstream outfile(file_path);
+    outfile << "sig_eff,bkg_eff,value,cut\n";
+
+    for (const auto result : results) {
+        outfile << result.sig_eff << ',' << result.bkg_eff << ','
+                << result.value << ',' << result.cut << '\n';
+    }
+
+    outfile.close();
 }
