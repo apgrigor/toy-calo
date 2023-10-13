@@ -27,3 +27,9 @@ xmake run an bdts
 for a BDT-based discrimination.
 
 Various Python scripts were made for auxillary plots etc., in `scripts`.
+
+You can compile the presentation using [typst](https://github.com/typst/typst) like so:
+```
+cd doc
+typst compile presentation.typ --root ..
+```
